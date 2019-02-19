@@ -17,6 +17,32 @@ ember install ember-ref-modifier
 ## Usage
 
 ```hbs
+<button {{ref "button" this}} data-name="foo">
+  Click me baby, one more time!
+</button>
+
+{{this.button.dataset.name}} >> "foo"
+```
+
+```hbs
+<div {{ref "divContainer" this}}></div>
+{{#-in-element this.divContainer}}
+  Hello!
+{{/-in-element}}
+```
+
+```hbs
+{{#let (hash) as |ctx|}}
+	<input id="name-input" {{ref 'inputNode' ctx}}>
+	<label for={{ctx.inputNode.id}}> Enter your name </label>
+{{/let}}
+```
+
+
+
+------
+
+```hbs
 <button {{ref "button" this}}>
   Click me baby, one more time!
 </button>
