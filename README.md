@@ -1,5 +1,7 @@
 # ember-ref-modifier
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lifeart/ember-ref-modifier.svg)](https://greenkeeper.io/)
+
 An implementation of the `{{ref}}` element modifier. 
 Heavily inspired by [ember-on-modifier](https://github.com/buschtoens/ember-on-modifier) and  [`@ember/render-modifiers`](https://github.com/emberjs/ember-render-modifiers).
 
