@@ -34,6 +34,7 @@ ember install ember-ref-modifier
 ```
 
 ```hbs
+// hash helper must return an EmberObject!
 {{#let (hash) as |ctx|}}
 	<input id="name-input" {{ref 'inputNode' ctx}}>
 	<label for={{ctx.inputNode.id}}> Enter your name </label>
@@ -54,7 +55,7 @@ ember install ember-ref-modifier
 import Component from '@ember/component';
 
 export default class BritneySpearsComponent extends Component {
-  button: DOMNode
+  button!: DOMNode
 }
 ```
 
