@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import { set, get } from '@ember/object';
+import { deprecate } from '@ember/application/deprecations';
 
 function hasValidTarget(target) {
   return (
@@ -11,6 +12,16 @@ function hasValidProperty(prop) {
 }
 function getParams([maybeTarget, maybePropName]) {
   const isPropNameString = typeof maybePropName === 'string';
+  if (!isPropNameString) {
+    deprecate(
+      'ember-ref-modifier: {{ref "propertyName" context}} has been changed to {{ref context "propertyName"}}. Please migrate to use this.',
+      false,
+      {
+        id: '@ember-ref-modifier--arguments-ordering-deprecation',
+        until: 'v1.0.0'
+      }
+    );
+  }
   return {
     propName: isPropNameString ? maybePropName : maybeTarget,
     target: isPropNameString ? maybeTarget : maybePropName
