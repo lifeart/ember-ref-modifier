@@ -9,6 +9,13 @@ function hasValidTarget(target) {
 function hasValidProperty(prop) {
   return typeof prop === 'string';
 }
+function getParams([maybeTarget, maybePropName]) {
+  const isPropNameString = typeof maybePropName === 'string';
+  return {
+    propName: isPropNameString ? maybePropName : maybeTarget,
+    target: isPropNameString ? maybeTarget : maybePropName
+  };
+}
 
 export default Ember._setModifierManager(
   () => ({
@@ -20,13 +27,8 @@ export default Ember._setModifierManager(
       };
     },
 
-    installModifier(
-      state,
-      element,
-      {
-        positional: [propName, target]
-      }
-    ) {
+    installModifier(state, element, { positional }) {
+      const { propName, target } = getParams(positional);
       if (hasValidProperty(propName) && hasValidTarget(target)) {
         set(target, propName, element);
         state.propName = propName;
@@ -35,12 +37,8 @@ export default Ember._setModifierManager(
       state.element = element;
     },
 
-    updateModifier(
-      state,
-      {
-        positional: [propName, target]
-      }
-    ) {
+    updateModifier(state, { positional }) {
+      const { propName, target } = getParams(positional);
       if (hasValidProperty(propName) && hasValidTarget(target)) {
         if (hasValidProperty(state.propName) && hasValidTarget(state.target)) {
           if (get(target, propName) !== get(state.target, state.propName)) {
