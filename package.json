@@ -1,6 +1,6 @@
 {
   "name": "ember-ref-modifier",
-  "version": "0.0.2",
+  "version": "0.1.2",
   "description": "{{ref propName context}} element modifier",
   "keywords": [
     "ember-addon",
