@@ -19,7 +19,7 @@ ember install ember-ref-modifier
 ## Usage
 
 ```hbs
-<button {{ref "button" this}} data-name="foo">
+<button {{ref this "button"}} data-name="foo">
   Click me baby, one more time!
 </button>
 
@@ -27,7 +27,7 @@ ember install ember-ref-modifier
 ```
 
 ```hbs
-<div {{ref "divContainer" this}}></div>
+<div {{ref this "divContainer" }}></div>
 {{#-in-element this.divContainer}}
   Hello!
 {{/-in-element}}
@@ -36,7 +36,7 @@ ember install ember-ref-modifier
 ```hbs
 // hash helper must return an EmberObject!
 {{#let (hash) as |ctx|}}
-	<input id="name-input" {{ref 'inputNode' ctx}}>
+	<input id="name-input" {{ref ctx 'inputNode'}}>
 	<label for={{ctx.inputNode.id}}> Enter your name </label>
 {{/let}}
 ```
@@ -46,7 +46,7 @@ ember install ember-ref-modifier
 ------
 
 ```hbs
-<button {{ref "button" this}}>
+<button {{ref this "button"}}>
   Click me baby, one more time!
 </button>
 ```
@@ -70,3 +70,9 @@ didInsertElement() {
 ```
 
 It will also re-register property, if any of the passed parameters change.
+
+### Deprecations
+
+Old syntaxis `{{ref 'pathName' context}}` will be deprecated in version 1.0.0.
+
+Use `{{ref context 'pathName'}}`  instead.
