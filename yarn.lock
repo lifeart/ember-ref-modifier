@@ -3039,7 +3039,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.4.0, ember-cli-babel@^7.4.2, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.4.2, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.7.3.tgz#f94709f6727583d18685ca6773a995877b87b8a0"
   integrity sha512-/LWwyKIoSlZQ7k52P+6agC7AhcOBqPJ5C2u27qXHVVxKvCtg6ahNuRk/KmfZmV4zkuw4EjTZxfJE1PzpFyHkXg==
@@ -3390,6 +3390,13 @@ ember-source-channel-url@^1.0.1, ember-source-channel-url@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ember-source-channel-url/-/ember-source-channel-url-1.1.0.tgz#73de5cc6ebc25b2120e932ec1d8f82677bfaf6ef"
   integrity sha512-y1RVXmyqrdX6zq9ZejpPt7ohKNGuLMBEKaOUyxFWcYAM5gvLuo6xFerwNmXEBbu4e3//GaoasjodXi6Cl+ddUQ==
+  dependencies:
+    got "^8.0.1"
+
+ember-source-channel-url@^2.0.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ember-source-channel-url/-/ember-source-channel-url-2.0.1.tgz#18b88f8a00b7746e7a456b3551abb3aea18729cc"
+  integrity sha512-YlLUHW9gNvxEaohIj5exykoTZb4xj9ZRTcR4J3svv9S8rjAHJUnHmqC5Fd9onCs+NGxHo7KwR/fDwsfadbDu5Q==
   dependencies:
     got "^8.0.1"
 
