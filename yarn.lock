@@ -748,6 +748,11 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@ember-data/rfc395-data@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@ember-data/rfc395-data/-/rfc395-data-0.0.4.tgz#ecb86efdf5d7733a76ff14ea651a1b0ed1f8a843"
+  integrity sha512-tGRdvgC9/QMQSuSuJV45xoyhI0Pzjm7A9o/MVVA3HakXIImJbbzx/k/6dO9CUEQXIyS2y0fW6C1XaYOG7rY0FQ==
+
 "@ember/optional-features@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@ember/optional-features/-/optional-features-0.7.0.tgz#f65a858007020ddfb8342f586112750c32abd2d9"
@@ -3039,7 +3044,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.4.0, ember-cli-babel@^7.4.2, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.4.2, ember-cli-babel@^7.4.3, ember-cli-babel@^7.5.0:
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.7.3.tgz#f94709f6727583d18685ca6773a995877b87b8a0"
   integrity sha512-/LWwyKIoSlZQ7k52P+6agC7AhcOBqPJ5C2u27qXHVVxKvCtg6ahNuRk/KmfZmV4zkuw4EjTZxfJE1PzpFyHkXg==
@@ -3570,10 +3575,11 @@ eslint-config-prettier@^4.0.0:
     get-stdin "^6.0.0"
 
 eslint-plugin-ember@^6.2.0:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-6.4.1.tgz#9b6fc99bbd86b4f43e9098a5c07c446eb2e64a08"
-  integrity sha512-eNzB3t/S4tR+4OhOucufIWs1UUzftxYrk97L7yErz5ETVXht6nEenV7T9FXt+wB2OBMWnlHvCeaSyhhaAR1DBw==
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-6.9.0.tgz#8d6566c4754803f7fc88595eb6eb3ad7ae2136e6"
+  integrity sha512-dY1lMDsqMPRgTj8S+U/6FkVRa0zNSc7dwD3JHyx6KNuz9zoQWs6XW6KmNN5nrwo4TeTvWehUIlaOahWjboAp9A==
   dependencies:
+    "@ember-data/rfc395-data" "^0.0.4"
     ember-rfc176-data "^0.3.9"
     snake-case "^2.1.0"
 
