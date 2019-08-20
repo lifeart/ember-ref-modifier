@@ -1,6 +1,6 @@
-import Ember from 'ember';
 import { set, get } from '@ember/object';
 import { deprecate } from '@ember/application/deprecations';
+import { setModifierManager, capabilities } from '@ember/modifier';
 
 function hasValidTarget(target) {
   return (
@@ -28,8 +28,9 @@ function getParams([maybeTarget, maybePropName]) {
   };
 }
 
-export default Ember._setModifierManager(
+export default setModifierManager(
   () => ({
+    capabilities: capabilities ? capabilities('3.13') : undefined,
     createModifier() {
       return {
         element: undefined,
@@ -68,5 +69,5 @@ export default Ember._setModifierManager(
       }
     }
   }),
-  class OnModifier {}
+  class RefModifier {}
 );
