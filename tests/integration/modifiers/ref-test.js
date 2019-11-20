@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Modifier | ref', function(hooks) {
@@ -104,5 +104,18 @@ module('Integration | Modifier | ref', function(hooks) {
     this.set('ctx', this);
 
     assert.equal(this.btn.tagName, 'BUTTON');
+  });
+
+  test('it works when using the let helper', async function(assert) {
+    assert.expect(1);
+
+    await render(hbs`
+      {{#let (hash) as |ctx|}}
+        <div {{ref ctx 'firstDiv'}} id='first-div'></div>
+        <div id='second-div'>{{ctx.firstDiv.id}}</div>
+      {{/let}}
+    `);
+
+    assert.dom('#second-div').hasText(find('#first-div').id);
   });
 });
