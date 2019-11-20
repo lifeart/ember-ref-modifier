@@ -105,17 +105,4 @@ module('Integration | Modifier | ref', function(hooks) {
 
     assert.equal(this.btn.tagName, 'BUTTON');
   });
-
-  test('it works when using the let helper', async function(assert) {
-    assert.expect(1);
-
-    await render(hbs`
-      {{#let (hash) as |ctx|}}
-        <div {{ref ctx 'firstDiv'}} id='first-div'></div>
-        <div id='second-div'>{{ctx.firstDiv.id}}</div>
-      {{/let}}
-    `);
-
-    assert.dom('#second-div').hasText(find('#first-div').id);
-  });
 });
