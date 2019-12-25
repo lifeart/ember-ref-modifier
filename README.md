@@ -34,7 +34,7 @@ ember install ember-ref-modifier
 ```
 
 ```hbs
-// hash helper must return an EmberObject!
+// hash helper must return an EmberObject! The default hash helper returns a pojo.
 {{#let (hash) as |ctx|}}
 	<input id="name-input" {{ref ctx 'inputNode'}}>
 	<label for={{ctx.inputNode.id}}> Enter your name </label>
