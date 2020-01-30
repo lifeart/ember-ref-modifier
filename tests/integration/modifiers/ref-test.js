@@ -10,7 +10,7 @@ module('Integration | Modifier | ref', function(hooks) {
     assert.expect(1);
 
     await render(
-      hbs`<button data-foo="some-thing" {{ref 'btn' this}}></button>`
+      hbs`<button data-foo="some-thing" {{ref "btn" this}}></button>`
     );
     assert.equal(this.btn.dataset.foo, 'some-thing');
   });
@@ -19,7 +19,7 @@ module('Integration | Modifier | ref', function(hooks) {
     assert.expect(1);
 
     await render(
-      hbs`<button data-foo="some-thing" {{ref this 'btn'}}></button>`
+      hbs`<button data-foo="some-thing" {{ref this "btn"}}></button>`
     );
     assert.equal(this.btn.dataset.foo, 'some-thing');
   });
@@ -28,13 +28,13 @@ module('Integration | Modifier | ref', function(hooks) {
     assert.expect(3);
 
     await render(
-      hbs`<button data-foo="some-thing"  {{ref 'btn' this}}></button>`
+      hbs`<button data-foo="some-thing"  {{ref "btn" this}}></button>`
     );
 
     assert.equal(this.btn.dataset.foo, 'some-thing');
 
     await render(
-      hbs`<button data-foo="some-thing"  {{ref 'btns' this}}></button>`
+      hbs`<button data-foo="some-thing"  {{ref "btns" this}}></button>`
     );
 
     assert.equal(this.btn, null);
@@ -45,13 +45,13 @@ module('Integration | Modifier | ref', function(hooks) {
     assert.expect(3);
 
     await render(
-      hbs`<button data-foo="some-thing"  {{ref this 'btn'}}></button>`
+      hbs`<button data-foo="some-thing"  {{ref this "btn"}}></button>`
     );
 
     assert.equal(this.btn.dataset.foo, 'some-thing');
 
     await render(
-      hbs`<button data-foo="some-thing"  {{ref this 'btns'}}></button>`
+      hbs`<button data-foo="some-thing"  {{ref this "btns"}}></button>`
     );
 
     assert.equal(this.btn, null);
@@ -61,9 +61,9 @@ module('Integration | Modifier | ref', function(hooks) {
   test('it does nothing if ref key or target `null` or `undefined`: legacy', async function(assert) {
     assert.expect(0);
     await render(hbs`
-      <button data-foo="some-thing" {{ref 'click' null}}></button>
-      <button data-foo="some-thing" {{ref 'click' undefined}}></button>
-      <button data-foo="some-thing" {{ref  null 'click'}}></button>
+      <button data-foo="some-thing" {{ref "click" null}}></button>
+      <button data-foo="some-thing" {{ref "click" undefined}}></button>
+      <button data-foo="some-thing" {{ref  null "click"}}></button>
       <button data-foo="some-thing" {{ref  undefined click}}></button>
       <button data-foo="some-thing" {{ref  null null}}></button>
       <button data-foo="some-thing" {{ref  undefined undefined}}></button>
@@ -73,9 +73,9 @@ module('Integration | Modifier | ref', function(hooks) {
   test('it does nothing if ref key or target `null` or `undefined`', async function(assert) {
     assert.expect(0);
     await render(hbs`
-      <button data-foo="some-thing" {{ref null 'click'}}></button>
-      <button data-foo="some-thing" {{ref undefined 'click'}}></button>
-      <button data-foo="some-thing" {{ref 'click' null}}></button>
+      <button data-foo="some-thing" {{ref null "click"}}></button>
+      <button data-foo="some-thing" {{ref undefined "click"}}></button>
+      <button data-foo="some-thing" {{ref "click" null}}></button>
       <button data-foo="some-thing" {{ref  click undefined}}></button>
       <button data-foo="some-thing" {{ref  null null}}></button>
       <button data-foo="some-thing" {{ref  undefined undefined}}></button>
@@ -86,11 +86,11 @@ module('Integration | Modifier | ref', function(hooks) {
     assert.expect(2);
 
     this.set('ctx', null);
-    await render(hbs`<button {{ref 'btn' this.ctx}}></button>`);
+    await render(hbs`<button {{ref "btn" this.ctx}}></button>`);
 
     assert.equal(this.btn, undefined);
     this.set('ctx', this);
-
+    await new Promise(resolve => setTimeout(resolve));
     assert.equal(this.btn.tagName, 'BUTTON');
   });
 
@@ -98,11 +98,21 @@ module('Integration | Modifier | ref', function(hooks) {
     assert.expect(2);
 
     this.set('ctx', null);
-    await render(hbs`<button {{ref this.ctx 'btn'}}></button>`);
-
+    await render(hbs`<button {{ref this.ctx "btn"}}></button>`);
     assert.equal(this.btn, undefined);
     this.set('ctx', this);
-
+    await new Promise(resolve => setTimeout(resolve));
     assert.equal(this.btn.tagName, 'BUTTON');
+  });
+
+  test('it support callbacks', async function(assert) {
+    assert.expect(1);
+
+    let node = null;
+    this.set('ctx', function(value) {
+      node = value;
+    });
+    await render(hbs`<button {{ref this.ctx}}></button>`);
+    assert.equal(node.tagName, 'BUTTON');
   });
 });

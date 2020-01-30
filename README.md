@@ -26,12 +26,33 @@ ember install ember-ref-modifier
 {{this.button.dataset.name}} >> "foo"
 ```
 
+--------------------------
+
+```hbs
+<button {{ref this.callback}} data-name="foo">
+  Click me baby, one more time!
+</button>
+```
+
+```js
+class Component {
+	@action callback(node) {
+		this.node = node;
+	}
+}
+
+```
+
+------------------------
+
 ```hbs
 <div {{ref this "divContainer" }}></div>
 {{#-in-element this.divContainer}}
   Hello!
 {{/-in-element}}
 ```
+------------------------
+
 
 ```hbs
 // hash helper must return an EmberObject! The default hash helper returns a pojo.
@@ -42,6 +63,7 @@ ember install ember-ref-modifier
 ```
 
 
+------------------------
 
 ------
 
