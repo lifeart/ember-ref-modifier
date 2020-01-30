@@ -50,6 +50,7 @@ export default setModifierManager(
       if (cb) {
         state.cb = cb;
         this._runInContext(cb, element);
+        return;
       }
       if (hasValidProperty(propName) && hasValidTarget(target)) {
         this._setInContext(target, propName, element);
@@ -63,7 +64,7 @@ export default setModifierManager(
       const { propName, target, cb } = getParams(positional);
       if (cb) {
         state.cb = cb;
-        this._runInContext(cb, element);
+        this._runInContext(cb, state.element);
         return;
       }
       if (hasValidProperty(propName) && hasValidTarget(target)) {
@@ -78,10 +79,10 @@ export default setModifierManager(
       }
     },
     _setInContext(target, propName, value) {
-	  next(this, '_setValues', target, propName, value);
+      next(this, '_setValues', target, propName, value);
     },
     _runInContext(cb, value) {
-	  next(this, '_runCb', cb, value);
+      next(this, '_runCb', cb, value);
     },
     _runCb(cb, value) {
       cb(value);
