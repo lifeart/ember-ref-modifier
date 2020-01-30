@@ -1,7 +1,7 @@
 import { set, get } from '@ember/object';
 import { deprecate } from '@ember/application/deprecations';
 import { setModifierManager, capabilities } from '@ember/modifier';
-
+import { run } from '@ember/runloop';
 function hasValidTarget(target) {
   return (
     typeof target === 'object' && target !== null && !Array.isArray(target)
@@ -11,6 +11,11 @@ function hasValidProperty(prop) {
   return typeof prop === 'string';
 }
 function getParams([maybeTarget, maybePropName]) {
+  if (typeof maybeTarget === 'function') {
+    return {
+      cb: maybeTarget
+    };
+  }
   const isPropNameString = typeof maybePropName === 'string';
   if (!isPropNameString) {
     deprecate(
@@ -35,14 +40,19 @@ export default setModifierManager(
       return {
         element: undefined,
         propName: undefined,
+        cb: undefined,
         target: undefined
       };
     },
 
     installModifier(state, element, { positional }) {
-      const { propName, target } = getParams(positional);
+      const { propName, target, cb } = getParams(positional);
+      if (cb) {
+        state.cb = cb;
+        this._runInContext(cb, element);
+      }
       if (hasValidProperty(propName) && hasValidTarget(target)) {
-        set(target, propName, element);
+        this._setInContext(target, propName, element);
         state.propName = propName;
         state.target = target;
       }
@@ -50,22 +60,44 @@ export default setModifierManager(
     },
 
     updateModifier(state, { positional }) {
-      const { propName, target } = getParams(positional);
+      const { propName, target, cb } = getParams(positional);
+      if (cb) {
+        state.cb = cb;
+        this._runInContext(cb, element);
+        return;
+      }
       if (hasValidProperty(propName) && hasValidTarget(target)) {
         if (hasValidProperty(state.propName) && hasValidTarget(state.target)) {
           if (get(target, propName) !== get(state.target, state.propName)) {
-            set(state.target, state.propName, null);
+            this._setInContext(state.target, state.propName, null);
           }
         }
-        set(target, propName, state.element);
+        this._setInContext(target, propName, state.element);
         state.propName = propName;
         state.target = target;
       }
     },
-
-    destroyModifier({ target, propName }) {
+    _setInContext(target, propName, value) {
+      run(this, '_setValues', target, propName, value);
+    },
+    _runInContext(cb, value) {
+      run(this, '_runCb', cb, value);
+    },
+    _runCb(cb, value) {
+      cb(value);
+    },
+    _setValues(target, propName, value) {
+      if (target.isDestroyed || target.isDestroying) {
+        return;
+      }
+      set(target, propName, value);
+    },
+    destroyModifier({ target, propName, cb }) {
+      if (cb) {
+        return;
+      }
       if (hasValidProperty(propName) && hasValidTarget(target)) {
-        set(target, propName, null);
+        this._setInContext(target, propName, null);
       }
     }
   }),
