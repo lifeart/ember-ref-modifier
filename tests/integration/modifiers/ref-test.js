@@ -90,7 +90,7 @@ module('Integration | Modifier | ref', function(hooks) {
 
     assert.equal(this.btn, undefined);
     this.set('ctx', this);
-
+    await new Promise(resolve => setTimeout(resolve));
     assert.equal(this.btn.tagName, 'BUTTON');
   });
 
@@ -99,10 +99,9 @@ module('Integration | Modifier | ref', function(hooks) {
 
     this.set('ctx', null);
     await render(hbs`<button {{ref this.ctx "btn"}}></button>`);
-
     assert.equal(this.btn, undefined);
     this.set('ctx', this);
-
+    await new Promise(resolve => setTimeout(resolve));
     assert.equal(this.btn.tagName, 'BUTTON');
   });
 
