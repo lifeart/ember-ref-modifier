@@ -1,11 +1,12 @@
 {
   "name": "ember-ref-modifier",
-  "version": "0.2.3",
-  "description": "{{ref propName context}} element modifier",
+  "version": "1.0.0",
+  "description": "Ember DOM reference modifier",
   "keywords": [
     "ember-addon",
     "ember-modifier",
     "ember-element-modifier",
+    "ref-modifier",
     "ref"
   ],
   "repository": "lifeart/ember-ref-modifier",
@@ -24,14 +25,14 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
-    "ember-cli-babel": "^7.10.0",
-    "ember-modifier-manager-polyfill": "^1.0.1"
+    "ember-cli-babel": "^7.13.2"
   },
   "devDependencies": {
+    "ember-modifier-manager-polyfill": "^1.0.1",
     "@ember/optional-features": "^1.3.0",
-	"broccoli-asset-rev": "^3.0.0",
-	"@glimmer/component": "^1.0.0",
-	"babel-eslint": "^10.0.3",
+    "broccoli-asset-rev": "^3.0.0",
+    "@glimmer/component": "^1.0.0",
+    "babel-eslint": "^10.0.3",
     "ember-cli": "~3.15.0",
     "ember-cli-dependency-checker": "^3.0.0",
     "ember-cli-htmlbars": "^4.0.8",
@@ -61,7 +62,7 @@
     "edition": "octane"
   },
   "engines": {
-    "node": "6.* || 8.* || >= 10.*"
+    "node": "8.* || >= 10.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
