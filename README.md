@@ -13,7 +13,7 @@ ember install ember-ref-modifier
 
 #### Compatibility
 
-- Ember.js v2.18 or above
+- Ember.js v3.13 or above
 - ember-cli v2.13 or above
 
 ## Usage
