@@ -92,9 +92,3 @@ didInsertElement() {
 ```
 
 It will also re-register property, if any of the passed parameters change.
-
-### Deprecations
-
-Old syntaxis `{{ref 'pathName' context}}` will be deprecated in version 1.0.0.
-
-Use `{{ref context 'pathName'}}`  instead.
