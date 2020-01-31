@@ -1,5 +1,5 @@
 import { set, get } from '@ember/object';
-import { deprecate } from '@ember/application/deprecations';
+import { assert } from '@ember/debug';
 import { setModifierManager, capabilities } from '@ember/modifier';
 import { next } from '@ember/runloop';
 function hasValidTarget(target) {
@@ -10,27 +10,17 @@ function hasValidTarget(target) {
 function hasValidProperty(prop) {
   return typeof prop === 'string';
 }
-function getParams([maybeTarget, maybePropName]) {
-  if (typeof maybeTarget === 'function') {
+function getParams([target, propName]) {
+  if (typeof target === 'function') {
     return {
-      cb: maybeTarget
+      cb: target
     };
   }
-  const isPropNameString = typeof maybePropName === 'string';
-  if (!isPropNameString) {
-    deprecate(
-      'ember-ref-modifier: {{ref "propertyName" context}} has been changed to {{ref context "propertyName"}}. Please migrate to use this.',
-      false,
-      {
-        id: '@ember-ref-modifier--arguments-ordering-deprecation',
-        until: 'v1.0.0'
-      }
-    );
-  }
-  return {
-    propName: isPropNameString ? maybePropName : maybeTarget,
-    target: isPropNameString ? maybeTarget : maybePropName
-  };
+  assert(
+    `String ${target} used as context for ref modifier. Should be {{ref context "${target}"}}. You passed {{ref "${target}" context}}`,
+    typeof target !== 'string'
+  );
+  return { target, propName };
 }
 
 export default setModifierManager(
