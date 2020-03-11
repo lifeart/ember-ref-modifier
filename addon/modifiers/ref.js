@@ -1,7 +1,7 @@
 import { set, get } from '@ember/object';
 import { assert } from '@ember/debug';
 import { setModifierManager, capabilities } from '@ember/modifier';
-import { next } from '@ember/runloop';
+import { run } from '@ember/runloop';
 function hasValidTarget(target) {
   return (
     typeof target === 'object' && target !== null && !Array.isArray(target)
@@ -69,10 +69,10 @@ export default setModifierManager(
       }
     },
     _setInContext(target, propName, value) {
-      next(this, '_setValues', target, propName, value);
+      run(this, '_setValues', target, propName, value);
     },
     _runInContext(cb, value) {
-      next(this, '_runCb', cb, value);
+      run(this, '_runCb', cb, value);
     },
     _runCb(cb, value) {
       cb(value);

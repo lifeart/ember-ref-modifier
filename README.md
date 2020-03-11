@@ -92,3 +92,28 @@ didInsertElement() {
 ```
 
 It will also re-register property, if any of the passed parameters change.
+
+## Updating a property twice in the same runloop
+
+When you have `computed` or `@tracked` properties that depend on the `{{ref}}` value you may see the error message
+
+```
+Error: Assertion Failed: You attempted to update `prop` on `Class`,but it had already been used previously in the same computation.
+```
+
+You will need to update your `{{ref}}` to use a callback and manually declare a new runloop to set the property in.
+
+```hbs
+{{ref this.setProp}}
+```
+
+```javascript
+import { next } from '@ember/runloop';
+@action
+setProp(element){
+  //set 'prop' in the next runloop so it does not cause a re-rendering calculation
+  run.next(()=> {
+    this.prop = element
+  });
+}
+```
