@@ -55,7 +55,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.0.1",
     "loader.js": "^4.7.0",
-    "prettier": "^1.16.1",
+    "prettier": "^2.0.5",
     "qunit-dom": "^0.9.0"
   },
   "ember": {
