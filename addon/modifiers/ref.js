@@ -1,7 +1,7 @@
 import { set, get } from '@ember/object';
 import { assert } from '@ember/debug';
 import { setModifierManager, capabilities } from '@ember/modifier';
-import { next } from '@ember/runloop';
+import { cancel, next } from '@ember/runloop';
 function hasValidTarget(target) {
   return (
     typeof target === 'object' && target !== null && !Array.isArray(target)
@@ -25,6 +25,8 @@ function getParams([target, propName]) {
 
 export default setModifierManager(
   () => ({
+    _runCache: new Set(),
+
     capabilities: capabilities ? capabilities('3.13') : undefined,
     createModifier() {
       return {
@@ -69,10 +71,12 @@ export default setModifierManager(
       }
     },
     _setInContext(target, propName, value) {
-      next(this, '_setValues', target, propName, value);
+      const cancelToken = next(this, '_setValues', target, propName, value);
+      this._runCache.add(cancelToken);
     },
     _runInContext(cb, value) {
-      next(this, '_runCb', cb, value);
+      const cancelToken = next(this, '_runCb', cb, value);
+      this._runCache.add(cancelToken);
     },
     _runCb(cb, value) {
       cb(value);
@@ -84,6 +88,8 @@ export default setModifierManager(
       set(target, propName, value);
     },
     destroyModifier({ target, propName, cb }) {
+      this._runCache.forEach(cancelToken => cancel(cancelToken));
+
       if (cb) {
         return;
       }
