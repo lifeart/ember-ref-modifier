@@ -3,10 +3,9 @@ language: node_js
 node_js:
   # we recommend testing addons with the same minimum supported node version as Ember CLI
   # so that your addon works for all apps
-  - '8'
+  - "10"
 
-sudo: false
-dist: trusty
+dist: xenial
 
 addons:
   chrome: stable
@@ -27,7 +26,7 @@ branches:
     - /^greenkeeper/.*$/
 
 jobs:
-  fail_fast: true
+  fast_finish: true
   allow_failures:
     - env: EMBER_TRY_SCENARIO=ember-canary
 
@@ -39,18 +38,17 @@ jobs:
       install:
         - yarn install --non-interactive
       script:
-        - yarn lint:hbs
-        - yarn lint:js
-        - yarn test
+        - yarn lint
+        - yarn test:ember
 
     - name: 'Floating Dependencies'
       script:
-        - yarn test
+        - yarn test:ember
 
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
-    - stage: 'Additional Tests'
-      env: EMBER_TRY_SCENARIO=ember-3.13
+    - env: EMBER_TRY_SCENARIO=ember-lts-3.12
+    - env: EMBER_TRY_SCENARIO=ember-lts-3.16
     - env: EMBER_TRY_SCENARIO=ember-release
     - env: EMBER_TRY_SCENARIO=ember-beta
     - env: EMBER_TRY_SCENARIO=ember-canary
