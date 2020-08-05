@@ -2,6 +2,14 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/lifeart/ember-ref-modifier.svg)](https://greenkeeper.io/)
 
+------------
+
+## Check [ember-ref-bucket](https://github.com/lifeart/ember-ref-bucket) first!
+
+**`ember-ref-modifier`** likely will be **deprecated** after **`ember-ref-bucket`** major release
+
+------------
+
 An implementation of the `{{ref}}` element modifier. 
 Heavily inspired by [ember-on-modifier](https://github.com/buschtoens/ember-on-modifier) and  [`@ember/render-modifiers`](https://github.com/emberjs/ember-render-modifiers).
 
